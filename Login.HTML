@@ -68,6 +68,7 @@
                     db.ref("User/"+gID+"/Password").once("value",function(snapshot){
                         if(getloginPassword==snapshot.val()){
                             alert("登入成功");
+                            document.location.href="https://foxjj1999aa.github.io/SearchPoint.HTML";
                         }else{alert("密碼錯誤");};
                     })                    
                 });

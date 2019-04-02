@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>Firebase Web Test</title>
+    <h1 id=txtid>請輸入帳號</h1>
+    <input type="text" id="loginid"><br>
+    <h1 id=txtps>請輸入密碼</h1>
+    <input type="text" id="loginpassword"><br>
+    <button onclick="getUserInfoLogin()">登入</button>
+    <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Sign.HTML'" style="background-color:#00BBFF;color:white;">需要註冊?</button>
+
+</head>
+
+<body bgcolor="#DDDDDD">
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
+            authDomain: "webtest-49dac.firebaseapp.com",
+            databaseURL: "https://webtest-49dac.firebaseio.com",
+            projectId: "webtest-49dac",
+            storageBucket: "webtest-49dac.appspot.com",
+            messagingSenderId: "520140906035"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.database();
+        var txtid = document.getElementById('txtid');
+        var UserCount;
+        var UserID = [];
+        var UserPassword = [];
+        function getUserInfoLogin() {
+            UserID = [];
+            db.ref("User").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();
+            });
+            setTimeout(login1, 1000);
+        }
+        function login1() {
+            for (let i = 0; i < UserCount; i++) {
+
+                db.ref("User/" + i + "/ID").once('value').then(function (snapshot) {
+                    UserID.push(snapshot.val());
+                });
+            }
+            setTimeout(login2, 1000);
+        }
+        function login2() {
+
+            var getloginID = document.getElementById("loginid").value;
+            if (getloginID == "") {
+                alert("帳號不得為空");
+            } else {
+                var check = UserID.includes(getloginID);
+                if (check == true) { checklogin(); }
+                else { alert("查無此帳號"); }
+            }
+        }
+        function checklogin() {
+            var getloginID = document.getElementById("loginid").value;
+            var getloginPassword = document.getElementById("loginpassword").value;
+            if (getloginPassword == "") {
+                alert("密碼不得為空");
+            } else {
+                db.ref("User").orderByChild("ID").equalTo(getloginID).once("child_added", function (snapshot) {                    
+                    var gID=snapshot.key;
+                    db.ref("User/"+gID+"/Password").once("value",function(snapshot){
+                        if(getloginPassword==snapshot.val()){
+                            alert("登入成功");
+                        }else{alert("密碼錯誤");};
+                    })                    
+                });
+            }
+        }
+    </script>
+
+
+</body>
+
+
+</html>

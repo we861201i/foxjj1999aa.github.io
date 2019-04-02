@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <title>Firebase Web Test</title>
+    <h1 id=txtid>請輸入帳號</h1>
+    <input type="text" id="inpid"><br>
+    <h1>請輸入密碼</h1>
+    <input type="text" id="inppassword"><br>
+    <button onclick="getUserInfoSign()">註冊</button>
+
+
+</head>
+
+<body>
+    <h1 id=bigOne></h1>
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
+            authDomain: "webtest-49dac.firebaseapp.com",
+            databaseURL: "https://webtest-49dac.firebaseio.com",
+            projectId: "webtest-49dac",
+            storageBucket: "webtest-49dac.appspot.com",
+            messagingSenderId: "520140906035"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.database();
+        var txtid = document.getElementById('txtid');
+        var UserCount;
+        var UserID = [];
+        
+        function getUserInfoSign() {
+            UserID = [];            
+            db.ref("User").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();
+            });
+            setTimeout(sign1, 1000);
+        }
+        function sign1() {
+            for (let i = 0; i < UserCount; i++) {
+                db.ref("User/" + i + "/ID").once('value').then(function (snapshot) {
+                    UserID.push(snapshot.val());
+                });
+            }            
+            setTimeout(sign2, 1000);
+        }
+        function sign2() {            
+            var getID = document.getElementById("inpid").value;            
+            if (getID != "") {
+                var check = UserID.includes(getID);                
+                if (check ==true ) { alert("帳號已被註冊過了喔!"); }
+                else {  setTimeout(sign3, 1000);}
+
+            } else {
+                alert("帳號不得為空")
+            }
+        }
+        function sign3() {
+            var getID = document.getElementById("inpid").value;
+            var getPassword = document.getElementById("inppassword").value;
+            if (getPassword != "") {
+                db.ref("User/" + UserCount + "/ID").set(getID);
+                db.ref("User/" + UserCount + "/Password").set(getPassword);
+                db.ref("User/" + UserCount + "/Point").set(0);
+                alert("註冊成功!");
+            } else {
+                alert("密碼不得為空")
+            }
+        }
+
+    </script>
+
+
+</body>
+
+
+</html>

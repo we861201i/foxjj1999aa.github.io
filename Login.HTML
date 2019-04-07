@@ -72,7 +72,7 @@
                     db.ref("User/" + gID + "/Password").once("value", function (snapshot) {
                         if (getloginPassword == snapshot.val()) {
                             alert("登入成功");
-                            document.location.href = "https://foxjj1999aa.github.io/SearchPoint.HTML";
+                            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E5%85%AC%E4%BD%88%E6%AC%84.HTML";
                         } else { alert("密碼錯誤"); };
                     })
                 });

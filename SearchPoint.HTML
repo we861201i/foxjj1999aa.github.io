@@ -1,14 +1,16 @@
 <html>
 
 <head>
-    <div style="text-align:center"><h2>紅利兌換流程</h2></div>
-    
+    <div style="text-align:center">
+        <h2>紅利兌換流程</h2>
+    </div>
+
     <div style="background-color:	#DDDDDD">
         <br>
         <h2>客戶的點數</h2>
         <br>
         <input type="text" id="inp">
-        <button onclick="AddArray()">篩選</button>
+        <button onclick="Search1()">篩選</button>
         <br>
     </div>
     <table border="1" width="100%">
@@ -16,14 +18,21 @@
         <th><span style="color:	#0066FF">點數</span></th>
         <th><span style="color:	#0066FF">動作</span></th>
     </table>
-    <table border="1" id="Tab1" width="100%">
+    <table border="1" width="100%">
         <tr>
             <th width="33.33%"><span style="color:	#00BBFF" id="Account"></span></th>
             <th width="33.33%"><span style="color:	#00BBFF" id="Point"></span></th>
             <th width="33.33%"><span style="color:	#00BBFF"></span></th>
         </tr>
     </table>
-    
+    <table border="1" id="Tab1" width="100%">
+        <tr>
+            <th width="33.33%"><span style="color:	#00BBFF"></span></th>
+            <th width="33.33%"><span style="color:	#00BBFF"></span></th>
+            <th width="33.33%"><span style="color:	#00BBFF"></span></th>
+        </tr>
+    </table>
+
     </table>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
@@ -40,24 +49,22 @@
         firebase.initializeApp(config);
         var db = firebase.database();
         var UserCount;
-        var UserID = [],UserPoint=[];
+        var UserID = [], UserPoint = [];
 
         function getUserInfo() {
             db.ref("User").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
-                
-
             });
             setTimeout(getUserInfo2, 2000);
         }
         function getUserInfo2() {
-            UserID.length =UserPoint.length= UserCount;            
+            UserID.length = UserPoint.length = UserCount+1;
             for (let i = 0; i < UserCount; i++) {
                 db.ref("User/" + i + "/ID").once('value').then(function (snapshot) {
                     (UserID[i] = snapshot.val());
                 });
             }
-            
+
             for (let i = 0; i < UserCount; i++) {
                 db.ref("User/" + i + "/Point").once('value').then(function (snapshot) {
                     (UserPoint[i] = snapshot.val());
@@ -77,9 +84,33 @@
                 var cell3 = row.insertCell(2);
 
                 cell1.innerHTML = "" + UserID[i];
-                cell2.innerHTML = ""+UserPoint[i];
+                cell2.innerHTML = "" + UserPoint[i];
                 cell3.innerHTML = "NEW CELL3";
             }
+        }
+        function Search1() {
+            
+            var search;            
+            var getAccount = document.getElementById("Account");
+            var getPoint = document.getElementById("Point");
+            
+            setTimeout(Search2,1000);
+        }
+        function Search2()
+        {
+            
+            var getinp = document.getElementById("inp").value;
+            var getAccount = document.getElementById("Account");
+            var getPoint = document.getElementById("Point");
+            if (UserID.includes(getinp) == true) {                
+                for (let i = 0; i < UserID.length; i++) {                    
+                    if (UserID[i] == getinp) {                        
+                        search = i;
+                        getAccount.innerHTML = UserID[i];
+                        getPoint.innerHTML = UserPoint[i];                        
+                    }
+                }
+            } else { alert("查無此帳號"); }
         }
     </script>
 

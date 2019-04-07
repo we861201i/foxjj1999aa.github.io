@@ -1,15 +1,19 @@
 <html>
-
 <head>
     <title>登入</title>
-    <h1>登入</h1>
-    <h1 id=txtid>請輸入帳號</h1>
-    <input type="text" id="loginid"><br>
-    <h1 id=txtps>請輸入密碼</h1>
-    <input type="text" id="loginpassword"><br>
-    <button onclick="getUserInfoLogin()">登入</button>
-    <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Sign.HTML'" style="background-color:#00BBFF;color:white;">需要註冊?</button>
-
+    <p align=center>
+        <img  width="50%" src="C:\Users\JFox\Desktop\Code\超級百logo.png" alt="">
+    </p>
+    <div  style="text-align:center">
+        <h1><font color="#0066FF"><b>登入</b></font></h1>
+        <h1 id=txtid>請輸入帳號</h1>
+        <input type="text" id="loginid"><br>
+        <h1 id=txtps>請輸入密碼</h1>
+        <input type="text" id="loginpassword"><br><br>
+        <button onclick="getUserInfoLogin()">登入</button>
+        <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Sign.HTML'"
+            style="background-color:#0066FF;color:white;">需要註冊?</button>
+    </div>
 </head>
 
 <body bgcolor="#DDDDDD">
@@ -63,14 +67,14 @@
             if (getloginPassword == "") {
                 alert("密碼不得為空");
             } else {
-                db.ref("User").orderByChild("ID").equalTo(getloginID).once("child_added", function (snapshot) {                    
-                    var gID=snapshot.key;
-                    db.ref("User/"+gID+"/Password").once("value",function(snapshot){
-                        if(getloginPassword==snapshot.val()){
+                db.ref("User").orderByChild("ID").equalTo(getloginID).once("child_added", function (snapshot) {
+                    var gID = snapshot.key;
+                    db.ref("User/" + gID + "/Password").once("value", function (snapshot) {
+                        if (getloginPassword == snapshot.val()) {
                             alert("登入成功");
-                            document.location.href="https://foxjj1999aa.github.io/SearchPoint.HTML";
-                        }else{alert("密碼錯誤");};
-                    })                    
+                            document.location.href = "https://foxjj1999aa.github.io/SearchPoint.HTML";
+                        } else { alert("密碼錯誤"); };
+                    })
                 });
             }
         }

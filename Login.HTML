@@ -2,7 +2,7 @@
 <head>
     <title>登入</title>
     <p align=center>
-        <img  width="50%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
+        <img  width="50%" src="C:\Users\JFox\Desktop\Code\超級百logo.png" alt="">
     </p>
     <div  style="text-align:center">
         <h1><font color="#0066FF"><b>登入</b></font></h1>
@@ -14,6 +14,7 @@
         <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Sign.HTML'"
             style="background-color:#0066FF;color:white;">需要註冊?</button>
     </div>
+    
 </head>
 
 <body bgcolor="#DDDDDD">
@@ -72,13 +73,14 @@
                     db.ref("User/" + gID + "/Password").once("value", function (snapshot) {
                         if (getloginPassword == snapshot.val()) {
                             alert("登入成功");
-                            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E5%85%AC%E4%BD%88%E6%AC%84.HTML";
+                            document.location.href = "https://foxjj1999aa.github.io/抽獎前置.HTML?"+getloginID;
                         } else { alert("密碼錯誤"); };
                     })
                 });
             }
         }
     </script>
+
 
 
 </body>

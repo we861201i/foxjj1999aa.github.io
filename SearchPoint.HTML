@@ -1,9 +1,10 @@
 <html>
-
+        
 <head>
     <div style="text-align:center">
         <h2>紅利兌換流程</h2>
     </div>
+    <button onclick="javascript:location.href='https://foxjj1999aa.github.io/抽獎前置.HTML'"></button>
 
     <div style="background-color:	#DDDDDD">
         <br>
@@ -55,6 +56,7 @@
             db.ref("User").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
+            var xx=location.search.substr(1);            
             setTimeout(getUserInfo2, 2000);
         }
         function getUserInfo2() {

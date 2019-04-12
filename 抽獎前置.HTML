@@ -4,21 +4,21 @@
 <head>
     <table border="1" width="30%" Height="8%">
         <tr>
-            <th width="10%"> <a href="抽獎公佈欄.HTML" style="color:white">抽獎公佈欄</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML" style="color:white">抽獎公佈欄</a></th>
 
-            <th width="10%"> <a href="SearchPoint.HTML" style="color:white">點數查詢</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML" style="color:white">點數查詢</a></th>
 
-            <th width="10%"> <a href="抽獎前置.HTML" style="color:white">輸入點數</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML" style="color:white">輸入點數</a></th>
             
         </tr>
     </table>
 
-    <p align=center><img src="超級百logo.png" width="80%"><br></p>
+    <p align=center><img src="https://foxjj1999aa.github.io/超級百logo.png" width="80%"><br></p>
     <h1>
         <p align=center>請輸入序號來進行抽獎</p>
     </h1>
     <p align=center><input type="text" id="loginid"><br><br><br></p>
-    <p align=center><button onclick="getUserInfoLogin()">輸入</button></p>
+    <p align=center><button onclick="Input()">輸入</button></p>
     <br>
 
 
@@ -28,7 +28,7 @@
 <style>
     body {
 
-        background-image: url("cjbg.jpg");
+        background-image: url("https://foxjj1999aa.github.io/cjbg.jpg");
         background-repeat: no-repeat;
         background-size: 100%;
     }
@@ -49,6 +49,10 @@
         };
         firebase.initializeApp(config);
         var db = firebase.database();
+        function Input()
+        {
+            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML"
+        }
     </script>
 </body>
 

@@ -69,6 +69,7 @@
 		var Username = location.search.substr(1);
 		var Price;
 		var UserCount;
+		var getIndex;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
 			count: 0,	//总共有多少个位置
@@ -126,8 +127,8 @@
 				} else if (luck.times == luck.cycle) {
 					var index = Math.random() * (luck.count) | 0;
 					luck.prize = index;
-					setTimeout(UpdateGift(index),3900);
-
+					getIndex=index;
+					UpdateGift();
 					Price = index;
 				} else {
 					if (luck.times > luck.cycle + 10 && ((luck.prize == 0 && luck.index == 7) || luck.prize == luck.index + 1)) {
@@ -146,17 +147,26 @@
 			}
 			return false;
 		}
-		function UpdateGift(index)
+		function UpdateGift()
 		{
 			
 			db.ref("Gift").once("value").then(function (snapshot) {
-                UserCount = snapshot.numChildren();
+				UserCount = snapshot.numChildren();
+				
             });
-			db.ref("Gift/"+UserCount+"/ID").set(Username);
-			db.ref("Gift/"+UserCount+"/Number").set(index);
-			alert("恭喜你抽中" + index + "號獎"+UserCount);			
+			setTimeout(UpdateGift2,1000);	
 		}
-
+		function UpdateGift2()
+		{
+			
+			db.ref("Gift/"+UserCount+"/ID").set(Username);
+			db.ref("Gift/"+UserCount+"/Number").set(getIndex);
+			setTimeout(UpdateGift3,2500);
+		}
+		function UpdateGift3()
+		{			
+			alert("恭喜你抽中" + getIndex + "號獎");	
+		}
 		//闪灯效果
 		var num = 0;
 		$(".shanDeng").attr("class", function () {

@@ -3,15 +3,15 @@
 
 <head>
 	<table border="1" width="30%" Height="8%">
-        <tr>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML" >抽獎公佈欄</a></th>
+		<tr>
+			<th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML">抽獎公佈欄</a></th>
 
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML" >點數查詢</a></th>
+			<th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML">點數查詢</a></th>
 
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML" >輸入點數</a></th>
+			<th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML">輸入點數</a></th>
 
-        </tr>
-    </table>
+		</tr>
+	</table>
 
 	<link rel="stylesheet" type="text/css" href="https://foxjj1999aa.github.io/styleCJ.css" />
 
@@ -49,9 +49,24 @@
 			</table>
 		</div><!-- luckEnd -->
 	</div>
+	<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+	<script>
+		var Username = location.search.substr(1);
+		var config = {
+			apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
+			authDomain: "webtest-49dac.firebaseapp.com",
+			databaseURL: "https://webtest-49dac.firebaseio.com",
+			projectId: "webtest-49dac",
+			storageBucket: "webtest-49dac.appspot.com",
+			messagingSenderId: "520140906035"
+		};
+		firebase.initializeApp(config);
+		var db = firebase.database();
 
+	</script>
 	<script src="jquery-1.8.3.min.js"></script>
 	<script>
+		var Username = location.search.substr(1);
 		var Price;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
@@ -68,7 +83,7 @@
 					this.obj = $luck;
 					this.count = $units.length;
 					$luck.find(".luck-unit-" + this.index).addClass("active");
-					
+
 				};
 			},
 
@@ -85,11 +100,11 @@
 				$(luck).find(".luck-unit-" + index).addClass("active");
 				this.index = index;
 				return false;
-				
+
 			},
 			stop: function (index) {
 				this.prize = index;
-				return false;				
+				return false;
 			}
 		};
 
@@ -102,16 +117,17 @@
 				luck.prize = -1;
 				luck.times = 0;
 				click = false;
-				
-				
+
+
 			} else {
 				if (luck.times < luck.cycle) {
-					luck.speed -= 10;					
+					luck.speed -= 10;
 				} else if (luck.times == luck.cycle) {
 					var index = Math.random() * (luck.count) | 0;
-					luck.prize = index;					
-					setTimeout(function(){ alert("恭喜你抽中"+index+"號獎"); }, 3900);
-					Price=index;
+					luck.prize = index;
+					setTimeout(UpdateGift,3900);
+
+					Price = index;
 				} else {
 					if (luck.times > luck.cycle + 10 && ((luck.prize == 0 && luck.index == 7) || luck.prize == luck.index + 1)) {
 						luck.speed += 110;
@@ -121,15 +137,24 @@
 				}
 				if (luck.speed < 40) {
 					luck.speed = 40;
-					
+
 				};
-				
+
 
 				luck.timer = setTimeout(roll, luck.speed);
 			}
 			return false;
 		}
-
+		function UpdateGift()
+		{
+			var UserCount;
+			db.ref("Gift").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();
+            });
+			db.ref("Gift/"+UserCount+"/ID").set(Username);
+			db.ref("Gift/"+UserCount+"/Number").set(index);
+			alert("恭喜你抽中" + index + "號獎");			
+		}
 
 		//闪灯效果
 		var num = 0;
@@ -165,14 +190,14 @@
 					roll();
 					click = true;
 					return false;
-					
+
 				}
-				
+
 			});
 		};
 	</script>
 
-	
+
 </body>
 
 </html>

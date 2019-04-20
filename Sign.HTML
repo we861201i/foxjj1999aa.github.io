@@ -73,7 +73,7 @@
                 db.ref("User/" + UserCount + "/Password").set(getPassword);
                 db.ref("User/" + UserCount + "/Point").set(0);
                 alert("註冊成功!");
-                document.location.href="https://foxjj1999aa.github.io/SearchPoint.HTML";
+                document.location.href="https://foxjj1999aa.github.io/SearchPoint.HTML?"+getID;
             } else {
                 alert("密碼不得為空")
             }

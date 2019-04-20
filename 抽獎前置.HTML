@@ -37,8 +37,7 @@
 <body>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
-        var Username = location.search.substr(1);
-        var xx=location.search.substr(1);
+        var Username = location.search.substr(1);        
         var config = {
             apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
             authDomain: "webtest-49dac.firebaseapp.com",
@@ -51,7 +50,7 @@
         var db = firebase.database();
         function Input()
         {
-            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML"
+            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?"+Username;
         }
     </script>
 </body>

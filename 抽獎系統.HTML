@@ -68,6 +68,7 @@
 	<script>
 		var Username = location.search.substr(1);
 		var Price;
+		var UserCount;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
 			count: 0,	//总共有多少个位置
@@ -125,7 +126,7 @@
 				} else if (luck.times == luck.cycle) {
 					var index = Math.random() * (luck.count) | 0;
 					luck.prize = index;
-					setTimeout(UpdateGift,3900);
+					setTimeout(UpdateGift(index),3900);
 
 					Price = index;
 				} else {
@@ -145,9 +146,9 @@
 			}
 			return false;
 		}
-		function UpdateGift()
+		function UpdateGift(index)
 		{
-			var UserCount;
+			
 			db.ref("Gift").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });

@@ -1,37 +1,42 @@
 <html>
+<style>
+    
+    #bb {
+        width: 100%;
+        float: left;
+    }
+
+    .item {
+        width: 22.5%;
+        text-align: center;
+        display: block;
+        background-color: transparent;
+        border: 1% solid transparent;
+        margin-left:1.125%;
+        margin-right:1.125%;
+        margin-bottom: 1px;
+        float: left;
+    }
+</style>
 
 <head>
     <title>抽獎公佈欄</title>
-
-    
     <div style="position:relative;">
         <img width="100%" src="https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E5%85%AC%E4%BD%88%E6%AC%84.png" alt="">
         <div style="position:absolute;top:9%;left:2%">
-            <table border="1" width="30%" Height="8%">
+            <table border="1" width="50%" Height="50%">
                 <tr>
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML" >抽獎公佈欄</a></th>
-        
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML" >點數查詢</a></th>
-        
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML" >輸入點數</a></th>
-        
+                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML">抽獎公佈欄</a></th>
+
+                    <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML">點數查詢</a></th>
+
+                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML">輸入點數</a></th>
+
                 </tr>
             </table>
         </div>
-        
+
     </div>
-        
-    
-    <table border="0" id="Tab1" width="100%">
-        <tr>
-            <th width="20%"><img src="https://foxjj1999aa.github.io/Tea.png" /><br>恭喜XXX獲得珍珠奶茶一杯 </th>
-            <th width="20%"><img height="60%" src="https://foxjj1999aa.github.io/Water.jpg" /><br>恭喜XXX獲得珍珠奶茶一杯</th>
-            <th width="20%"><img src="https://foxjj1999aa.github.io/Tea.png" /><br>恭喜XXX獲得珍珠奶茶一杯</th>
-            <th width="20%"><img height="60%" src="https://foxjj1999aa.github.io/Water.jpg" /><br>恭喜XXX獲得珍珠奶茶一杯</th>
-        </tr>       
-    </table>
-
-
 
 </head>
 
@@ -48,10 +53,49 @@
             messagingSenderId: "520140906035"
         };
         firebase.initializeApp(config);
+
+    </script> 
+             
+        <div id=bb>
+
+        </div>    
+    <script src="jquery-1.8.3.min.js"></script>
+    <script>
+        //set the default value
+        window.onload = start;
         var db = firebase.database();
+        var get = [];
+        var UserCount;
+
+        for (let i = 0; i < UserCount - 1; i++) {
+            setTimeout(start, 1000);
+        }
+
+        //add input block in showBlock
+        function start() {
+            db.ref("Gift").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();                
+            });
+            
+            setTimeout(start1, 1000)
+        };
+        function start1() {
+            for (let i = 0; i < UserCount; i++) {                
+                db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
+                    get.push(snapshot.val());
+                });
+            }
+            setTimeout(start2,1000)
+        };
+        function start2() {
+            
+            for (let i = 0; i < UserCount; i++) {
+                
+                $("#bb").append('<div class="item"><input type="image" width="100%" src="http://movingimages.files.wordpress.com/2009/10/earth-simulator-offers-peaks-into-our-planetary-future.jpg" /><br><font color="white">' + get[i] + '</font></div>');
+            }
+        };
+
     </script>
-
-
 </body>
 
 

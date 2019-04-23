@@ -1,9 +1,9 @@
 <html>
 <head>
     <title>登入</title>
-    <p align=center>
-        <img  width="50%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
-    </p>
+    <div align=center>
+            <img  width="40%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
+        </div>
     <div  style="text-align:center">
         <h1><font color="#0066FF"><b>登入</b></font></h1>
         <h1 id=txtid>請輸入帳號</h1>
@@ -44,7 +44,6 @@
         }
         function login1() {
             for (let i = 0; i < UserCount; i++) {
-
                 db.ref("User/" + i + "/ID").once('value').then(function (snapshot) {
                     UserID.push(snapshot.val());
                 });
@@ -52,7 +51,6 @@
             setTimeout(login2, 1000);
         }
         function login2() {
-
             var getloginID = document.getElementById("loginid").value;
             if (getloginID == "") {
                 alert("帳號不得為空");

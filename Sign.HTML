@@ -1,35 +1,45 @@
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <html>
 
 <head>
     <title>註冊</title>
     <div align=center>
-        <img  width="40%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
+        <img width="40%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
     </div>
-    
-    <div  style="text-align:center">
-        
-            <h1><font color="#0066FF"><b>註冊</b></font></h1>         
-            <h1 id=txtid>請輸入帳號</h1>
-            <input type="text" id="inpid"><br>
-            <h1>請輸入密碼</h1>
-            <input type="text" id="inppassword"><br><br>
-            <button onclick="getUserInfoSign()" >註冊</button>
-            <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Login.HTML'" style="background-color:#0066FF;color:white;">已有帳號?</button>
+
+    <div style="text-align:center">
+
+        <h1>
+            <font color="#0066FF"><b>註冊</b></font>
+        </h1>
+        <h1 id=txtid>請輸入帳號</h1>
+        <input type="text" id="inpid"><br>
+        <h1>請輸入密碼</h1>
+        <input type="text" id="inppassword"><br><br>
+        <button onclick="getUserInfoSign()">註冊</button>
+        <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Login.HTML'"
+            style="background-color:#0066FF;color:white;">已有帳號?</button>
     </div>
-    
+
 
 
 </head>
 <style>
-        body {
-    
-            background-image: url("https://foxjj1999aa.github.io/login_bg.jpg");
-            background-repeat: no-repeat;
-            background-size: 100%;
-            background-position:center;
-        }
-    </style>
-<body >
+    img {
+        height: auto;
+        max-width: 100%;
+    }
+
+    body {
+
+        background-image: url("https://foxjj1999aa.github.io/login_bg.jpg");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+</style>
+
+<body>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -46,9 +56,9 @@
         var txtid = document.getElementById('txtid');
         var UserCount;
         var UserID = [];
-        
+
         function getUserInfoSign() {
-            UserID = [];            
+            UserID = [];
             db.ref("User").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
@@ -59,15 +69,15 @@
                 db.ref("User/" + i + "/ID").once('value').then(function (snapshot) {
                     UserID.push(snapshot.val());
                 });
-            }            
+            }
             setTimeout(sign2, 1000);
         }
-        function sign2() {            
-            var getID = document.getElementById("inpid").value;            
+        function sign2() {
+            var getID = document.getElementById("inpid").value;
             if (getID != "") {
-                var check = UserID.includes(getID);                
-                if (check ==true ) { alert("帳號已被註冊過了喔!"); }
-                else {  setTimeout(sign3, 1000);}
+                var check = UserID.includes(getID);
+                if (check == true) { alert("帳號已被註冊過了喔!"); }
+                else { setTimeout(sign3, 1000); }
             } else {
                 alert("帳號不得為空")
             }
@@ -80,7 +90,7 @@
                 db.ref("User/" + UserCount + "/Password").set(getPassword);
                 db.ref("User/" + UserCount + "/Point").set(0);
                 alert("註冊成功!");
-                document.location.href="https://foxjj1999aa.github.io/SearchPoint.HTML?"+getID;
+                document.location.href = "https://foxjj1999aa.github.io/SearchPoint.HTML?" + getID;
             } else {
                 alert("密碼不得為空")
             }

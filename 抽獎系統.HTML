@@ -68,6 +68,8 @@
 	<script>
 		var Username = location.search.substr(1);
 		var Price;
+		var ID=[];
+		var Nnumber=[];
 		var UserCount;
 		var getIndex;
 		var luck = {
@@ -127,7 +129,7 @@
 				} else if (luck.times == luck.cycle) {
 					var index = Math.random() * (luck.count) | 0;
 					luck.prize = index;
-					getIndex=index;
+					getIndex = index;
 					UpdateGift();
 					Price = index;
 				} else {
@@ -147,26 +149,53 @@
 			}
 			return false;
 		}
-		function UpdateGift()
-		{
-			
+		function UpdateGift() {
+
 			db.ref("Gift").once("value").then(function (snapshot) {
 				UserCount = snapshot.numChildren();
-				
-            });
-			setTimeout(UpdateGift2,1000);	
+				if (UserCount < 20) {
+					setTimeout(UpdateGift2, 1000);
+				} else {
+					setTimeout(change, 1000);
+				}
+			});
+
 		}
-		function UpdateGift2()
-		{
-			
-			db.ref("Gift/"+UserCount+"/ID").set(Username);
-			db.ref("Gift/"+UserCount+"/Number").set(getIndex);
-			setTimeout(UpdateGift3,2500);
+		function change() {
+			for (let i = 0; i < UserCount; i++) {
+				db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
+					ID.push(snapshot.val());
+				});
+				db.ref("Gift/" + i + "/Number").once("value").then(function (snapshot) {
+					Nnumber.push(snapshot.val());
+				});
+			}
+			setTimeout(change1, 1000);
+
 		}
-		function UpdateGift3()
-		{			
+		function change1() {
+			for (let i = 0; i < UserCount - 1; i++) {
+				db.ref("Gift/" + i + "/ID").set(ID[i + 1]);
+			}
+			for (let i = 0; i < UserCount - 1; i++) {
+				db.ref("Gift/" + i + "/Number").set(Nnumber[i + 1]);
+			}
+			setTimeout(change2, 1000);
+		}
+		function change2() {
+			db.ref("Gift/19/ID").set(Username);
+			db.ref("Gift/19/Number").set(getIndex);
+			setTimeout(UpdateGift3, 2500);
+		}
+		function UpdateGift2() {
+
+			db.ref("Gift/" + UserCount + "/ID").set(Username);
+			db.ref("Gift/" + UserCount + "/Number").set(getIndex);
+			setTimeout(UpdateGift3, 2500);
+		}
+		function UpdateGift3() {
 			alert("恭喜你抽中" + getIndex + "號獎");
-			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?"+Username;
+			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
 		}
 		//闪灯效果
 		var num = 0;

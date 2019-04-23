@@ -65,6 +65,7 @@
         window.onload = start;
         var db = firebase.database();
         var get = [];
+        var ID=[],Nnumber=[];
         var UserCount;
 
         for (let i = 0; i < UserCount - 1; i++) {
@@ -74,11 +75,15 @@
         //add input block in showBlock
         function start() {
             db.ref("Gift").once("value").then(function (snapshot) {
-                UserCount = snapshot.numChildren();                
+                UserCount = snapshot.numChildren();
+                
+                    setTimeout(start1, 1000);
+                          
             });
             
-            setTimeout(start1, 1000)
-        };
+            
+        };        
+        
         function start1() {
             for (let i = 0; i < UserCount; i++) {                
                 db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
@@ -89,9 +94,9 @@
         };
         function start2() {
             
-            for (let i = 0; i < UserCount; i++) {
+            for (let i = UserCount; i > 0; i--) {
                 
-                $("#bb").append('<div class="item"><input type="image" width="100%" src="http://movingimages.files.wordpress.com/2009/10/earth-simulator-offers-peaks-into-our-planetary-future.jpg" /><br><font color="white">' + get[i] + '</font></div>');
+                $("#bb").append('<div class="item"><input type="image" width="100%" src="http://movingimages.files.wordpress.com/2009/10/earth-simulator-offers-peaks-into-our-planetary-future.jpg" /><br><font color="white">' + get[i-1] + '</font></div>');
             }
         };
 

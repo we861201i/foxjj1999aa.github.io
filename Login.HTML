@@ -1,10 +1,35 @@
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <html>
 <head>
     <title>登入</title>
-    <div align=center>
+    
+    
+</head>
+<style>
+   img {
+        height: auto;
+        max-width:auto;
+    }       
+	body {
+
+        background-image:url("https://foxjj1999aa.github.io/login_bg.jpg");
+        background-repeat: no-repeat;
+        background-size:auto;
+		background-position:center center;
+    }
+	login-panel{
+	
+	position:center center;
+	
+	}
+    </style>
+<body>
+    
+
+<div align=center>
             <img  width="40%" src="https://foxjj1999aa.github.io/%E8%B6%85%E7%B4%9A%E7%99%BElogo.png" alt="">
         </div>
-    <div  style="text-align:center">
+    <div  class="login-panel" style="text-align:center">
         <h1><font color="#0066FF"><b>登入</b></font></h1>
         <h1 id=txtid>請輸入帳號</h1>
         <input type="text" id="loginid"><br>
@@ -14,19 +39,9 @@
         <button onclick="javascript:location.href='https://foxjj1999aa.github.io/Sign.HTML'"
             style="background-color:#0066FF;color:white;">需要註冊?</button>
     </div>
-    
-</head>
-<style>
-        body {
-    
-            background-image: url("https://foxjj1999aa.github.io/login_bg.jpg");
-            background-repeat: no-repeat;
-            background-size: 100%;
-            background-position:center;
-        }
-    </style>
-<body>
-    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+
+</body>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -86,10 +101,6 @@
             }
         }
     </script>
-
-
-
-</body>
 
 
 </html>

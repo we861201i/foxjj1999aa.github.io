@@ -1,6 +1,5 @@
 <html>
 <style>
-    
     #bb {
         width: 100%;
         float: left;
@@ -12,8 +11,8 @@
         display: block;
         background-color: transparent;
         border: 1% solid transparent;
-        margin-left:1.125%;
-        margin-right:1.125%;
+        margin-left: 1.125%;
+        margin-right: 1.125%;
         margin-bottom: 1px;
         float: left;
     }
@@ -21,6 +20,10 @@
 
 <head>
     <title>抽獎公佈欄</title>
+    <marquee id=run scrollamount=12 behavior=slide
+        style="font-family: 新細明體; font-size: 12pt; color: #ffff00; letter-spacing: 2pt; text-align: 置中; word-spacing: 0; border-style: ridge"
+        align="middle">歡迎光臨!感謝使用本抽獎系統!</marquee>
+
     <div style="position:relative;">
         <img width="100%" src="https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E5%85%AC%E4%BD%88%E6%AC%84.png" alt="">
         <div style="position:absolute;top:9%;left:2%">
@@ -54,20 +57,22 @@
         };
         firebase.initializeApp(config);
 
-    </script> 
-             
-        <div id=bb>
+    </script>
 
-        </div>    
+    <div id=bb>
+
+    </div>
     <script src="jquery-1.8.3.min.js"></script>
     <script>
         //set the default value
         window.onload = start;
         var db = firebase.database();
-        var get = [];
-        var ID=[],Nnumber=[];
+        var get = [],Nnumber=[];
+        var count = 0;
         var UserCount;
-
+        var run = document.getElementById("run");
+        var nn;
+        var k = "&nbsp;";
         for (let i = 0; i < UserCount - 1; i++) {
             setTimeout(start, 1000);
         }
@@ -76,29 +81,39 @@
         function start() {
             db.ref("Gift").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
-                
-                    setTimeout(start1, 1000);
-                          
+
+                setTimeout(start1, 1000);
+
             });
-            
-            
-        };        
-        
+
+
+        };
+
         function start1() {
-            for (let i = 0; i < UserCount; i++) {                
+            for (let i = 0; i < UserCount; i++) {
                 db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
                     get.push(snapshot.val());
                 });
+                db.ref("Gift/" + i + "/Number").once("value").then(function (snapshot) {
+                    Nnumber.push(snapshot.val());
+                });
             }
-            setTimeout(start2,1000)
+            setTimeout(start2, 1000)
         };
         function start2() {
-            
+
             for (let i = UserCount; i > 0; i--) {
+
+                $("#bb").append('<div class="item"><input type="image" width="100%" src="https://raw.githubusercontent.com/foxjj1999aa/foxjj1999aa.github.io/master/%E4%B8%AD%E7%8D%8E.png" /><br><font color="white">' + get[i - 1] + '</font></div>');
                 
-                $("#bb").append('<div class="item"><input type="image" width="100%" src="http://movingimages.files.wordpress.com/2009/10/earth-simulator-offers-peaks-into-our-planetary-future.jpg" /><br><font color="white">' + get[i-1] + '</font></div>');
             }
+            setInterval(runh, 9000);
+
         };
+        function runh() {            
+            run.innerHTML = '<marquee scrollamount=12 behavior=slide>' + '恭喜' + get[count] + '中獎!'+'中了'+Nnumber[count]+'號獎品喔!'+'</marquee>';
+            count=count+1;
+        }
 
     </script>
 </body>

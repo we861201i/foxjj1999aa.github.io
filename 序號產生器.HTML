@@ -1,0 +1,171 @@
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>html 表格匯出</title>
+    <script language="JavaScript" type="text/javascript">
+
+
+        var idTmr;
+        //獲取當前瀏覽器型別
+        function getExplorer() {
+            var explorer = window.navigator.userAgent;
+            //ie
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if (explorer.indexOf("Chrome") >= 0) {
+                return 'Chrome';
+            }
+            //Opera
+            else if (explorer.indexOf("Opera") >= 0) {
+                return 'Opera';
+            }
+            //Safari
+            else if (explorer.indexOf("Safari") >= 0) {
+                return 'Safari';
+            }
+        }
+
+        //獲取到型別需要判斷當前瀏覽器需要呼叫的方法，目前專案中火狐，谷歌，360沒有問題
+        //win10自帶的IE無法匯出
+        function exportExcel(tableid) {
+            if (getExplorer() == 'ie') {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");
+                var oWB = oXL.Workbooks.Add();
+                var xlsheet = oWB.Worksheets(1);
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);
+                sel.select();
+                sel.execCommand("Copy");
+                xlsheet.Paste();
+                oXL.Visible = true;
+
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+                } catch (e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+                    oWB.Close(savechanges = false);
+                    oXL.Quit();
+                    oXL = null;
+                    idTmr = window.setInterval("Cleanup();", 1);
+                }
+
+            }
+            else {
+                tableToExcel(tableid)
+            }
+        }
+        function Cleanup() {
+            window.clearInterval(idTmr);
+            CollectGarbage();
+        }
+
+        //判斷瀏覽器後呼叫的方法，把table的id傳入即可
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+                template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',
+                base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) },
+                format = function (s, c) {
+                    return s.replace(/{(\w+)}/g,
+                        function (m, p) { return c[p]; })
+                }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+
+
+    </script>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var password_string = "";
+        var config = {
+            apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
+            authDomain: "webtest-49dac.firebaseapp.com",
+            databaseURL: "https://webtest-49dac.firebaseio.com",
+            projectId: "webtest-49dac",
+            storageBucket: "webtest-49dac.appspot.com",
+            messagingSenderId: "520140906035"
+        };
+        firebase.initializeApp(config);
+        var db = firebase.database();
+        var UserCount;
+        function start() {
+            db.ref("Snumber").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();
+            });
+            setTimeout(start1,1000);
+            
+        }
+        function start1() {
+            for (let x = 0; x < 20; x++) {                
+                password_string = "";
+                runme();
+                
+            }
+
+        }
+
+        function runme() {
+            //1.初始宣告
+            var tableExcel = document.getElementById("tableExcel");
+            var i = 0;
+            var j = 0;
+            var password_length = 6;
+
+            var source = new Array();
+            
+            source[1] = "1";
+            source[2] = "2";
+            source[3] = "3";
+            source[4] = "4";
+            source[5] = "5";
+            source[6] = "6";
+            source[7] = "7";
+            source[8] = "8";
+            source[0] = "9";
+            //2.隨便挑一個字元, 共挑 6 次
+            for (i = 0; i < password_length; i++) {
+                j = Math.floor(Math.random() * source.length)
+                password_string = password_string + source[j];
+            }
+            //3.放進文字方塊
+            var row = tableExcel.insertRow(1);
+            var cell1 = row.insertCell(0);
+            cell1.innerHTML = password_string;
+            db.ref("Snumber/" + UserCount).set(password_string);
+            UserCount=UserCount+1;
+        }
+
+    </script>
+
+    <div>
+        <button onclick="start()">++</button>
+        <button type="button" onclick="exportExcel('tableExcel')">匯出Excel</button>
+    </div>
+    <div id="myDiv">
+        <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="5" align="center">序號 表格匯出到Excel</td>
+            </tr>
+
+        </table>
+    </div>
+</body>
+
+</html>

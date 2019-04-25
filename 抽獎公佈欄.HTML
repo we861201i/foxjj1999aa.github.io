@@ -20,8 +20,8 @@
 
 <head>
     <title>抽獎公佈欄</title>
-    <marquee id=run scrollamount=12 behavior=slide
-        style="font-family: 新細明體; font-size: 12pt; color: #ffff00; letter-spacing: 2pt; text-align: 置中; word-spacing: 0; border-style: ridge"
+    <marquee id=run scrollamount=12 behavior=slide height=5%
+        style="font-family: 新細明體; font-size: 140%; color: #ffff00; letter-spacing: 2pt; text-align: 置中; word-spacing: 0; border-style: ridge"
         align="middle">歡迎光臨!感謝使用本抽獎系統!</marquee>
 
     <div style="position:relative;">
@@ -68,7 +68,7 @@
         window.onload = start;
         var db = firebase.database();
         var get = [],Nnumber=[];
-        var count = 0;
+        var count = 19;
         var UserCount;
         var run = document.getElementById("run");
         var nn;
@@ -107,12 +107,12 @@
                 $("#bb").append('<div class="item"><input type="image" width="100%" src="https://raw.githubusercontent.com/foxjj1999aa/foxjj1999aa.github.io/master/%E4%B8%AD%E7%8D%8E.png" /><br><font color="white">' + get[i - 1] + '</font></div>');
                 
             }
-            setInterval(runh, 9000);
+            setInterval(runh, 10000);
 
         };
         function runh() {            
             run.innerHTML = '<marquee scrollamount=12 behavior=slide>' + '恭喜' + get[count] + '中獎!'+'中了'+Nnumber[count]+'號獎品喔!'+'</marquee>';
-            count=count+1;
+            count=count-1;
         }
 
     </script>

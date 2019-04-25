@@ -4,12 +4,12 @@
 <head>
     <table border="1" width="30%" Height="8%">
         <tr>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML" >抽獎公佈欄</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML">抽獎公佈欄</a></th>
 
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML" >點數查詢</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML">點數查詢</a></th>
 
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML" >輸入點數</a></th>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML" >產生序號</a></th>
+            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML">輸入點數</a></th>
+
         </tr>
     </table>
 
@@ -18,7 +18,7 @@
     <h1>
         <div style="position:absolute;top:24%;left:39%">請輸入序號來進行抽獎</div>
     </h1>
-    <div  style="position:absolute;top:33%;left:44%"><input type="text" id="loginid"><br></div>
+    <div style="position:absolute;top:33%;left:44%"><input type="text" id="loginid"><br></div>
     <div style="position:absolute;top:39%;left:48%"><button onclick="Input()">輸入</button></div>
     <br>
 
@@ -32,14 +32,14 @@
         background-image: url("https://foxjj1999aa.github.io/抽獎_bg.jpg");
         background-repeat: no-repeat;
         background-size: 100%;
-        background-position:center;
+        background-position: center;
     }
 </style>
 
 <body>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
-        var Username = location.search.substr(1);        
+        var Username = location.search.substr(1);
         var config = {
             apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
             authDomain: "webtest-49dac.firebaseapp.com",
@@ -50,10 +50,52 @@
         };
         firebase.initializeApp(config);
         var db = firebase.database();
-        function Input()
-        {
-            document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?"+Username;
+
+        var CheckSnumber = [];
+        var UserCount;
+        function Input() {
+
+            db.ref("Snumber").once("value").then(function (snapshot) {
+                UserCount = snapshot.numChildren();
+            });
+            setTimeout(Input1, 1000);
         }
+        function Input1() {
+
+            for (let i = 0; i < UserCount; i++) {
+                db.ref("Snumber/" + i).once("value").then(function (snapshot) {
+                    CheckSnumber.push(snapshot.val());
+                })
+            }
+            setTimeout(Input2, 1000);
+        }
+        function Input2() {
+
+            var Snumber = document.getElementById("loginid").value;
+            var check = CheckSnumber.includes(Snumber);
+
+            if (check == true) {
+
+                for (let i = 0; i < UserCount; i++) {
+                    if (CheckSnumber[i] == Snumber) {
+                        check = i;
+                    }
+                }
+                for (let i = check; i < UserCount - 1; i++) {
+                    db.ref("Snumber/" + i).set("" + CheckSnumber[i + 1]);
+                }
+                  setTimeout(Input3,1000);
+                
+            }
+            else {
+                alert("序號錯誤");
+            }
+        }
+        function Input3() {
+            db.ref("Snumber/" + (UserCount-1)).remove();
+            setTimeout(function(){document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?" + Username;},1000)  ;
+        }
+
     </script>
 </body>
 

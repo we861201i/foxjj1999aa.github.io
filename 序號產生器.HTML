@@ -93,6 +93,8 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script>
         // Initialize Firebase
+        var Check = [];
+        
         var password_string = "";
         var config = {
             apiKey: "AIzaSyA2zAXlG4Q2Pq_x3RUe7J_JrwdiVhBjtqI",
@@ -109,19 +111,29 @@
             db.ref("Snumber").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
-            setTimeout(start1,1000);
-            
+            setTimeout(start1, 1000);
+
         }
         function start1() {
-            for (let x = 0; x < 20; x++) {                
-                password_string = "";
-                runme();
-                
+            for (let i = 0; i < UserCount; i++) {
+                db.ref("Snumber/" + i).once("value").then(function (snapshot) {
+                    Check.push(snapshot.val());
+                })
             }
+            setTimeout(runme, 1000);
+
 
         }
-
         function runme() {
+
+            for (let x = 0; x < 20; x++) {
+                password_string = "";
+
+                runme1();
+            }
+            setTimeout(function () { alert(pls) }, 1000)
+        }
+        function runme1() {
             //1.初始宣告
             var tableExcel = document.getElementById("tableExcel");
             var i = 0;
@@ -139,17 +151,22 @@
             source[7] = "7";
             source[8] = "8";
             source[0] = "9";
+            source[9] = "10";
             //2.隨便挑一個字元, 共挑 6 次
+
             for (i = 0; i < password_length; i++) {
-                j = Math.floor(Math.random() * source.length)
-                password_string = password_string + source[j];
+                
+                    j = Math.floor(Math.random() * source.length)
+                    password_string = password_string + source[j]; 
             }
+
+
             //3.放進文字方塊
             var row = tableExcel.insertRow(1);
             var cell1 = row.insertCell(0);
             cell1.innerHTML = password_string;
             db.ref("Snumber/" + UserCount).set(password_string);
-            UserCount=UserCount+1;
+            UserCount = UserCount + 1;
         }
 
     </script>

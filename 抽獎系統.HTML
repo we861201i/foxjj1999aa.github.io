@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html>
-
+		<style>
+				#getGift {
+            width: 890px;
+            height: 627px;
+            margin:auto;
+            background: url(https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png);
+            display: none;
+        }
+        #again {
+            width: 890px;
+            height: 627px;
+            background: url(https://foxjj1999aa.github.io/%E7%B5%A6%E4%BD%A0%E6%A9%9F%E6%9C%83.png);
+            display: none;
+            margin:auto;
+        }
+        #GG {
+            width: 890px;
+            height: 627px;
+            margin:auto;
+            background: url(https://foxjj1999aa.github.io/%E6%B2%92%E4%B8%AD%E7%8D%8E.png);
+            display: none;
+        }
+			</style>
 <head>
 	<table border="1" width="30%" Height="8%">
 		<tr>
@@ -18,11 +40,17 @@
 </head>
 
 <body>
-
+		<a href="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png" target="_self" onclick="window.open(this.href,'','width=255,height=255');return false"/>查看联系方式</a>
 	<p align=center><img src="https://foxjj1999aa.github.io/超級百logo.png" width="80%"></p>
 
 	<div class="shanDeng" id="deng">
 		<div id="luck">
+				<div id="getGift" onclick="hiddenImagegift()"></div>
+				<a href="#" onclick="displayImagegift()"></a>
+				<div id="again" onclick="hiddenImagetry()"></div>
+				<a href="#" onclick="displayImagetry()"></a>
+				<div id="GG" onclick="hiddenImageGG()"></div>
+				<a href="#" onclick="displayImageGG()"></a>
 			<!-- luck -->
 			<table>
 				<tr>
@@ -157,19 +185,16 @@
 		{
 			if(getIndex==0||getIndex==2||getIndex==4||getIndex==6)
 			{
-				BB=parseInt(Math.random()* 10);	
-							
+				BB=parseInt(Math.random()* 10);
 				UpdateGift();
 			}else if(getIndex==7||getIndex==3)
 			{
-				setTimeout(function(){alert("可以再抽一次喔")	},5000);
-							
+				setTimeout(displayImagetry, 4000);
+				
 			}
 			else
 			{
-				setTimeout(function(){alert("很抱歉，槓龜了喔")},5000);
-				
-				document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
+				setTimeout(displayImageGG, 4000);
 			}
 		}
 		function UpdateGift() {
@@ -209,16 +234,16 @@
 		function change2() {
 			db.ref("Gift/19/ID").set(Username);
 			db.ref("Gift/19/Number").set(Gift[BB]);
-			setTimeout(UpdateGift3, 2500);
+			setTimeout(UpdateGift3, 1000);
 		}
 		function UpdateGift2() {			
 			db.ref("Gift/" + UserCount + "/ID").set(Username);
 			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 2500);
 		}
-		function UpdateGift3() {
-			alert("恭喜你抽中" + Gift[BB] + "號獎");
-			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
+		function UpdateGift3() {			
+			displayImagegift();
+			
 		}
 		//闪灯效果
 		var num = 0;
@@ -233,7 +258,27 @@
 				}
 			}, 500)
 		})
-
+		function displayImagegift() {
+            document.getElementById("getGift").style.display = "block";
+        }
+        function hiddenImagegift() {
+            document.getElementById("getGift").style.display = "none";
+			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
+        }
+        function displayImagetry() {
+            document.getElementById("again").style.display = "block";
+        }
+        function hiddenImagetry() {
+            document.getElementById("again").style.display = "none";
+			
+        }
+        function displayImageGG() {
+            document.getElementById("GG").style.display = "block";
+        }
+        function hiddenImageGG() {
+            document.getElementById("GG").style.display = "none";
+			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
+        }
 
 		var click = false;
 		window.onload = function () {

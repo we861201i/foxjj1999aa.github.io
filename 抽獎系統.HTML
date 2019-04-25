@@ -26,25 +26,27 @@
 			<!-- luck -->
 			<table>
 				<tr>
-					<td class="luck-unit luck-unit-0"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-1"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-2"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-3"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
+					<td class="luck-unit luck-unit-0"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					</td>
+					<td class="luck-unit luck-unit-1"><img src="https://foxjj1999aa.github.io/%E6%A7%93%E9%BE%9C.png">
+					</td>
+					<td class="luck-unit luck-unit-2"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					</td>
 				</tr>
 				<tr>
-					<td class="luck-unit luck-unit-11"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td rowspan="2" colspan="2" class="cjBtn" id="btn"></td>
-					<td class="luck-unit luck-unit-4"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
+					<td class="luck-unit luck-unit-7"><img
+							src="https://foxjj1999aa.github.io/%E5%86%8D%E6%8A%BD%E4%B8%80%E6%AC%A1.png"></td>
+					<td rowspan="1" colspan="1" class="cjBtn" id="btn"></td>
+					<td class="luck-unit luck-unit-3"><img
+							src="https://foxjj1999aa.github.io/%E5%86%8D%E6%8A%BD%E4%B8%80%E6%AC%A1.png"></td>
 				</tr>
 				<tr>
-					<td class="luck-unit luck-unit-10"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-5"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-				</tr>
-				<tr>
-					<td class="luck-unit luck-unit-9"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-8"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-7"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
-					<td class="luck-unit luck-unit-6"><img src="https://foxjj1999aa.github.io/Tea.png"></td>
+					<td class="luck-unit luck-unit-6"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					</td>
+					<td class="luck-unit luck-unit-5"><img src="https://foxjj1999aa.github.io/%E6%A7%93%E9%BE%9C.png">
+					</td>
+					<td class="luck-unit luck-unit-4"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					</td>
 				</tr>
 			</table>
 		</div><!-- luckEnd -->
@@ -67,9 +69,11 @@
 	<script src="jquery-1.8.3.min.js"></script>
 	<script>
 		var Username = location.search.substr(1);
+		var BB;
 		var Price;
-		var ID=[];
-		var Nnumber=[];
+		var ID = [];
+		var Nnumber = [];
+		var Gift=[1,2,3,4,5,6,7,8,9,10];
 		var UserCount;
 		var getIndex;
 		var luck = {
@@ -130,7 +134,7 @@
 					var index = Math.random() * (luck.count) | 0;
 					luck.prize = index;
 					getIndex = index;
-					UpdateGift();
+					Bingo();
 					Price = index;
 				} else {
 					if (luck.times > luck.cycle + 10 && ((luck.prize == 0 && luck.index == 7) || luck.prize == luck.index + 1)) {
@@ -149,8 +153,27 @@
 			}
 			return false;
 		}
+		function Bingo()
+		{
+			if(getIndex==0||getIndex==2||getIndex==4||getIndex==6)
+			{
+				BB=parseInt(Math.random()* 10);	
+							
+				UpdateGift();
+			}else if(getIndex==7||getIndex==3)
+			{
+				setTimeout(function(){alert("可以再抽一次喔")	},5000);
+							
+			}
+			else
+			{
+				setTimeout(function(){alert("很抱歉，槓龜了喔")},5000);
+				
+				document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
+			}
+		}
 		function UpdateGift() {
-
+			
 			db.ref("Gift").once("value").then(function (snapshot) {
 				UserCount = snapshot.numChildren();
 				if (UserCount < 20) {
@@ -161,7 +184,8 @@
 			});
 
 		}
-		function change() {
+		
+		function change() {			
 			for (let i = 0; i < UserCount; i++) {
 				db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
 					ID.push(snapshot.val());
@@ -173,7 +197,7 @@
 			setTimeout(change1, 1000);
 
 		}
-		function change1() {
+		function change1() {			
 			for (let i = 0; i < UserCount - 1; i++) {
 				db.ref("Gift/" + i + "/ID").set(ID[i + 1]);
 			}
@@ -184,17 +208,16 @@
 		}
 		function change2() {
 			db.ref("Gift/19/ID").set(Username);
-			db.ref("Gift/19/Number").set(getIndex);
+			db.ref("Gift/19/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 2500);
 		}
-		function UpdateGift2() {
-
+		function UpdateGift2() {			
 			db.ref("Gift/" + UserCount + "/ID").set(Username);
-			db.ref("Gift/" + UserCount + "/Number").set(getIndex);
+			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 2500);
 		}
 		function UpdateGift3() {
-			alert("恭喜你抽中" + getIndex + "號獎");
+			alert("恭喜你抽中" + Gift[BB] + "號獎");
 			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
 		}
 		//闪灯效果

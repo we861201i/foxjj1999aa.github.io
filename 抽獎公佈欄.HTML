@@ -79,11 +79,9 @@
 
         //add input block in showBlock
         function start() {
-            db.ref("Gift").once("value").then(function (snapshot) {
+            db.ref("ShowGift").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
-
                 setTimeout(start1, 1000);
-
             });
 
 
@@ -91,10 +89,10 @@
 
         function start1() {
             for (let i = 0; i < UserCount; i++) {
-                db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
+                db.ref("ShowGift/" + i + "/ID").once("value").then(function (snapshot) {
                     get.push(snapshot.val());
                 });
-                db.ref("Gift/" + i + "/Number").once("value").then(function (snapshot) {
+                db.ref("ShowGift/" + i + "/Number").once("value").then(function (snapshot) {
                     Nnumber.push(snapshot.val());
                 });
             }

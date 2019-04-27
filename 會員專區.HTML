@@ -123,6 +123,7 @@
     var db = firebase.database();
     var UsrGift="";
     var ccc=0;
+    var aaa=0;
     function find() {
         db.ref("Send").once("value").then(function (snapshot) {
             SendCount = snapshot.numChildren();
@@ -135,7 +136,7 @@
         db.ref("Gift").orderByChild("ID").equalTo(Username).once('value', function (snapshot) {
             snapshot.forEach(function (item) {
                 Wgift[ccc]= item.key;
-                ccc+=ccc+1;
+                ccc+=ccc+1;               
                 
             })
         });
@@ -149,7 +150,7 @@
 
         setTimeout(getInfo, 2000);
     }
-    function getInfo() {
+    function getInfo() {        
         db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
             UserPoint = snapshot.val();
         })
@@ -190,9 +191,13 @@
     }
     function send1() {
         for (let i = 0; i < Wgift.length; i++) {
-            UsrGift+=Wgift[i]+"號獎品"
+            if(Wgift[i]!=null)
+            {
+                UsrGift+=Wgift[i]+"號獎品";
+                aaa=aaa+1;
+            }
         }
-        alert(UsrGift);
+        alert(aaa+"個獎品的寄貨訊息已收到");
         db.ref("Send/" + SendCount + "/Gift").set(UsrGift);
     }
 

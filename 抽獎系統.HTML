@@ -106,7 +106,7 @@
 		var ID = [];
 		var Nnumber = [];
 		var Gift = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-		var UserCount,SUserCount;
+		var UserCount, SUserCount;
 		var getIndex;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
@@ -208,7 +208,7 @@
 				}
 			});
 			db.ref("Gift").once("value").then(function (snapshot) {
-				UserCount = snapshot.numChildren();			
+				UserCount = snapshot.numChildren();
 			});
 
 		}
@@ -226,6 +226,8 @@
 
 		}
 		function change1() {
+			db.ref("Gift/" + UserCount + "/ID").set(Username);
+			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
 			for (let i = 0; i < SUserCount - 1; i++) {
 				db.ref("ShowGift/" + i + "/ID").set(ID[i + 1]);
 			}
@@ -242,6 +244,8 @@
 		function UpdateGift2() {
 			db.ref("ShowGift/" + SUserCount + "/ID").set(Username);
 			db.ref("ShowGift/" + SUserCount + "/Number").set(Gift[BB]);
+			db.ref("Gift/" + UserCount + "/ID").set(Username);
+			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 2500);
 		}
 		function UpdateGift3() {

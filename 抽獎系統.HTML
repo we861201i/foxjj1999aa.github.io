@@ -43,8 +43,8 @@
 </head>
 
 <body>
-	<a href="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png" target="_self"
-	
+
+
 	<p align=center><img src="https://foxjj1999aa.github.io/超級百logo.png" width="80%"></p>
 
 	<div class="shanDeng" id="deng">
@@ -322,32 +322,40 @@
 
 		var click = false;
 		window.onload = function () {
+			
+					window.history.forward(1);
+					if (Username == "") {
+						var result_style = document.getElementById('bingo').style;
+						result_style.display = 'none';
+					}
+					else {
+						luck.init('luck');
 
-			luck.init('luck');
-
-			$("#btn").click(function () {
-				//按下弹起效果
-				$("#btn").addClass("cjBtnDom");
-				setTimeout(function () {
-					$("#btn").removeClass("cjBtnDom");
-				}, 200);
-
-
-				if (click) {
-					return false;
-				}
-				else {
-					luck.speed = 100;
-					roll();
-					click = true;
-					return false;
-
-				}
-
-			});
+						$("#btn").click(function () {
+							//按下弹起效果
+							$("#btn").addClass("cjBtnDom");
+							setTimeout(function () {
+								$("#btn").removeClass("cjBtnDom");
+							}, 200);
 
 
-		};
+							if (click) {
+								return false;
+							}
+							else {
+								luck.speed = 100;
+								roll();
+								click = true;
+								return false;
+
+							}
+
+						});
+					}
+
+
+
+			};
 	</script>
 
 

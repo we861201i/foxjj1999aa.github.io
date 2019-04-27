@@ -43,7 +43,7 @@
 </div>
 <button onclick="javascript:location.href='https://foxjj1999aa.github.io/抽獎前置.HTML?'+Username">返回輸入點數</button>
 <button id=change align=right>填寫寄貨資訊</button>
-<button onclick="send1()" >++</button>
+<button onclick="send1()">++</button>
 
 
 
@@ -93,8 +93,8 @@
                         <label for="usrname"><span class="glyphicon glyphicon-user"></span> 電話</label>
                         <input type="text" class="form-control" id="usrphone" placeholder="輸入電話">
                     </div>
-                    
-                    <button type="button"data-dismiss="modal" onclick="send()"> 送出</button>
+
+                    <button type="button" data-dismiss="modal" onclick="send()"> 送出</button>
                 </form>
             </div>
 
@@ -107,7 +107,7 @@
 <script>
     window.onload = find;
     var UserPoint, UserGift, SendCount;
-    var Gift = [], Wgift = [];
+    var Gift = [], Wgift = [], Wwgift = [];
     var Username = location.search.substr(1);
     var Key;
     // Initialize Firebase
@@ -121,9 +121,12 @@
     };
     firebase.initializeApp(config);
     var db = firebase.database();
-    var UsrGift="";
-    var ccc=0;
-    var aaa=0;
+    var UsrGift = "";
+    var ccc = 0;
+    var aaa = 0;
+    var last;
+    var lastID = [];var lastNm = [];
+    var llastID = [];var llastNm = [];
     function find() {
         db.ref("Send").once("value").then(function (snapshot) {
             SendCount = snapshot.numChildren();
@@ -135,9 +138,10 @@
         });
         db.ref("Gift").orderByChild("ID").equalTo(Username).once('value', function (snapshot) {
             snapshot.forEach(function (item) {
-                Wgift[ccc]= item.key;
-                ccc+=ccc+1;               
-                
+                Wgift[ccc] = item.key;
+                Wwgift[ccc] = item.key;
+                ccc += ccc + 1;
+
             })
         });
 
@@ -150,7 +154,7 @@
 
         setTimeout(getInfo, 2000);
     }
-    function getInfo() {        
+    function getInfo() {
         db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
             UserPoint = snapshot.val();
         })
@@ -170,11 +174,11 @@
         });
     });
     function send() {
-        window.alert1 = function(msg){
-    $("#alertContentId").html(msg);
-    $("#alertModalId").modal('show');
-    setTimeout('$("#alertModalId").modal("hide")',500);
-};
+        window.alert1 = function (msg) {
+            $("#alertContentId").html(msg);
+            $("#alertModalId").modal('show');
+            setTimeout('$("#alertModalId").modal("hide")', 500);
+        };
 
         var Usrname = document.getElementById("usrname").value;
         var Address = document.getElementById("address").value;
@@ -182,23 +186,80 @@
         db.ref("Send/" + SendCount + "/Name").set(Usrname);
         db.ref("Send/" + SendCount + "/Phone").set(Usrphone);
         db.ref("Send/" + SendCount + "/Address").set(Address);
-        for (let i = 0; i < Wgift.length; i++) {            
-            db.ref("Gift/" + Wgift[i] + "/Number").once("value").then(function (snapshot) {      
-                Wgift[i]=snapshot.val();
-            });            
+        for (let i = 0; i < Wgift.length; i++) {
+            db.ref("Gift/" + Wgift[i] + "/Number").once("value").then(function (snapshot) {
+                Wgift[i] = snapshot.val();
+            });
         }
-        setTimeout(send1,1000);
+        db.ref("Gift").once("value").then(function (snapshot) {
+            last = snapshot.numChildren();
+        });
+        setTimeout(send1, 1000);
     }
     function send1() {
         for (let i = 0; i < Wgift.length; i++) {
-            if(Wgift[i]!=null)
-            {
-                UsrGift+=Wgift[i]+"號獎品";
-                aaa=aaa+1;
+            if (Wgift[i] != null) {
+                UsrGift += Wgift[i] + "號獎品";
+                aaa = aaa + 1;
             }
         }
-        alert(aaa+"個獎品的寄貨訊息已收到");
+        alert(aaa + "個獎品的寄貨訊息已收到");
         db.ref("Send/" + SendCount + "/Gift").set(UsrGift);
+        for (let i = 0; i < Wgift.length; i++) {
+            if (Wwgift[i] != null) {
+                db.ref("Gift/" + Wwgift[i]).remove();
+            }
+        }
+        setTimeout(send2, 1000)
+    }
+    function send2() {
+        setTimeout(send3, 1000);
+    }
+    function send3() {
+        for (let i = 0; i < last; i++) {
+            db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
+                lastID[i] = snapshot.val();
+            });
+            db.ref("Gift/" + i + "/Number").once("value").then(function (snapshot) {
+                lastNm[i] = snapshot.val();
+            });
+        }
+        setTimeout(send4, 1000);
+
+    }
+    function send4() {
+        db.ref("Gift/").remove();
+
+        setTimeout(send5, 1000);
+    }
+    function send5() {
+
+        for (let i = 0; i < last - 1; i++) {
+            if (lastID[i] == null) {
+                lastID[i] = lastID[i + 1];
+                lastID[i + 1] = null;
+                lastNm[i] = lastNm[i + 1];
+                lastNm[i + 1] = null;
+            }
+            
+        }
+        send6();
+    }
+    
+    function send6() {
+        lastID.sort();
+        lastNm.sort();
+        for (let i = 0; i < last - 1; i++) {
+            if (lastID[i] != null) {
+                llastID[i] = lastID[i];
+                llastNm[i] = lastNm[i];
+            }
+        }
+        
+        for (let i = 0; i < llastID.length; i++) {
+            db.ref("Gift/" + i + "/ID").set(llastID[i]);
+            db.ref("Gift/" + i + "/Number").set(llastNm[i]);
+        }
     }
 
 

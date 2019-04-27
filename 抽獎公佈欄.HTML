@@ -73,7 +73,7 @@
         var nn;
         var k = "&nbsp;";
         for (let i = 0; i < UserCount - 1; i++) {
-            setTimeout(start, 1000);
+            setTimeout(start, 200);
         }
 
         //add input block in showBlock
@@ -85,7 +85,7 @@
             document.getElementById("ee").innerHTML = '<a id=ee href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML?' + Username + '">序號產生器</a>';
             db.ref("ShowGift").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
-                setTimeout(start1, 1000);
+                setTimeout(start1, 200);
             });
 
 
@@ -100,7 +100,7 @@
                     Nnumber.push(snapshot.val());
                 });
             }
-            setTimeout(start2, 1000)
+            setTimeout(start2, 400)
         };
         function start2() {
 

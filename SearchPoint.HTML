@@ -57,7 +57,7 @@
                 UserCount = snapshot.numChildren();
             });
             var xx=location.search.substr(1);            
-            setTimeout(getUserInfo2, 2000);
+            setTimeout(getUserInfo2, 1200);
         }
         function getUserInfo2() {
             UserID.length = UserPoint.length = UserCount+1;
@@ -72,7 +72,7 @@
                     (UserPoint[i] = snapshot.val());
                 });
             }
-            setTimeout(AddArray, 2000);
+            setTimeout(AddArray, 1200);
         }
         window.onload = getUserInfo;
         function AddArray() {
@@ -96,7 +96,7 @@
             var getAccount = document.getElementById("Account");
             var getPoint = document.getElementById("Point");
             
-            setTimeout(Search2,1000);
+            setTimeout(Search2,200);
         }
         function Search2()
         {

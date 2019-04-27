@@ -9,7 +9,6 @@
             <th width="10%"> <a id=cc href="">dd</a></th>
             <th width="10%"> <a id=dd href="">dd</a></th>
             <th width="10%"> <a id=ee href="">dd</a></th>
-	    <th width="10%"> <a id=ff href="">dd</a></th>
         </tr>
     </table>
 
@@ -59,7 +58,7 @@
             db.ref("Snumber").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
-            setTimeout(Input1, 1000);
+            setTimeout(Input1, 200);
         }
         function Input1() {
 
@@ -68,7 +67,7 @@
                     CheckSnumber.push(snapshot.val());
                 })
             }
-            setTimeout(Input2, 1000);
+            setTimeout(Input2, 200);
         }
         function Input2() {
 
@@ -85,7 +84,7 @@
                 for (let i = check; i < UserCount - 1; i++) {
                     db.ref("Snumber/" + i).set("" + CheckSnumber[i + 1]);
                 }
-                  setTimeout(Input3,1000);
+                  setTimeout(Input3,500);
                 
             }
             else {
@@ -94,7 +93,7 @@
         }
         function Input3() {
             db.ref("Snumber/" + (UserCount-1)).remove();
-            setTimeout(function(){document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?" + Username;},1000)  ;
+            setTimeout(function(){document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?" + Username;},200)  ;
         }
         function aa()
         {
@@ -102,8 +101,7 @@
             document.getElementById("bb").innerHTML='<a id=bb href="https://foxjj1999aa.github.io/SearchPoint.HTML?'+Username+'">點數查詢</a>';  
             document.getElementById("cc").innerHTML='<a id=cc href="https://foxjj1999aa.github.io/%E6%9C%83%E5%93%A1%E5%B0%88%E5%8D%80.HTML?'+Username+'">會員專區</a>';  
             document.getElementById("dd").innerHTML='<a id=dd href="https://foxjj1999aa.github.io/抽獎前置.HTML?'+Username+'">輸入點數</a>';  
-            document.getElementById("ee").innerHTML='<a id=ee href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML?'+Username+'">序號產生器</a>';
-	    document.getElementById("ff").innerHTML='<a id=ee href="https://foxjj1999aa.github.io/%E5%AF%84%E4%BB%B6%E6%9F%A5%E8%A9%A2.HTML?'+Username+'">寄件查詢</a>';
+            document.getElementById("ee").innerHTML='<a id=ee href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML?'+Username+'">序號產生器</a>';  
         }
 
     </script>

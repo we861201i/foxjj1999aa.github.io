@@ -210,9 +210,9 @@
 			db.ref("ShowGift").once("value").then(function (snapshot) {
 				SUserCount = snapshot.numChildren();
 				if (SUserCount < 20) {
-					setTimeout(UpdateGift2, 1000);
+					setTimeout(UpdateGift2, 200);
 				} else {
-					setTimeout(change, 1000);
+					setTimeout(change, 200);
 				}
 			});
 			db.ref("Gift").once("value").then(function (snapshot) {
@@ -242,19 +242,19 @@
 			for (let i = 0; i < SUserCount - 1; i++) {
 				db.ref("ShowGift/" + i + "/Number").set(Nnumber[i + 1]);
 			}
-			setTimeout(change2, 1000);
+			setTimeout(change2, 200);
 		}
 		function change2() {
 			db.ref("ShowGift/19/ID").set(Username);
 			db.ref("ShowGift/19/Number").set(Gift[BB]);
-			setTimeout(UpdateGift3, 1000);
+			setTimeout(UpdateGift3, 200);
 		}
 		function UpdateGift2() {
 			db.ref("ShowGift/" + SUserCount + "/ID").set(Username);
 			db.ref("ShowGift/" + SUserCount + "/Number").set(Gift[BB]);
 			db.ref("Gift/" + UserCount + "/ID").set(Username);
 			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
-			setTimeout(UpdateGift3, 2500);
+			setTimeout(UpdateGift3, 200);
 		}
 		function UpdateGift3() {
 			displayImagegift();
@@ -277,7 +277,7 @@
 			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
 				Point = snapshot.val();
 			})
-			setTimeout(displayImagegift1, 1000)
+			setTimeout(displayImagegift1, 200)
 		}
 		function displayImagegift1() {
 			Point = Point + 1;
@@ -305,7 +305,7 @@
 			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
 				Point = snapshot.val();
 			})
-			setTimeout(displayImageGG1, 1000)
+			setTimeout(displayImageGG1, 200)
 
 		}
 		function displayImageGG1() {

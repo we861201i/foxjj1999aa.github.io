@@ -152,13 +152,13 @@
 
         });
 
-        setTimeout(getInfo, 2000);
+        setTimeout(getInfo, 1200);
     }
     function getInfo() {
         db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
             UserPoint = snapshot.val();
         })
-        setTimeout(getInfo1, 1000);
+        setTimeout(getInfo1, 200);
     }
     function getInfo1() {
         document.getElementById("name").innerHTML = Username;
@@ -194,7 +194,7 @@
         db.ref("Gift").once("value").then(function (snapshot) {
             last = snapshot.numChildren();
         });
-        setTimeout(send1, 1000);
+        setTimeout(send1, 200);
     }
     function send1() {
         for (let i = 0; i < Wgift.length; i++) {
@@ -210,10 +210,10 @@
                 db.ref("Gift/" + Wwgift[i]).remove();
             }
         }
-        setTimeout(send2, 1000)
+        setTimeout(send2, 200)
     }
     function send2() {
-        setTimeout(send3, 1000);
+        setTimeout(send3, 200);
     }
     function send3() {
         for (let i = 0; i < last; i++) {
@@ -224,13 +224,13 @@
                 lastNm[i] = snapshot.val();
             });
         }
-        setTimeout(send4, 1000);
+        setTimeout(send4, 200);
 
     }
     function send4() {
         db.ref("Gift/").remove();
 
-        setTimeout(send5, 1000);
+        setTimeout(send5, 200);
     }
     function send5() {
 

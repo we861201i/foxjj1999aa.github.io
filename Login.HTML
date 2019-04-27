@@ -63,7 +63,7 @@
             db.ref("User").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
-            setTimeout(login1, 1000);
+            setTimeout(login1, 200);
         }
         function login1() {
             for (let i = 0; i < UserCount; i++) {
@@ -71,7 +71,7 @@
                     UserID.push(snapshot.val());
                 });
             }
-            setTimeout(login2, 1000);
+            setTimeout(login2, 200);
         }
         function login2() {
             var getloginID = document.getElementById("loginid").value;

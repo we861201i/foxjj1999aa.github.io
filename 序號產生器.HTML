@@ -111,7 +111,7 @@
             db.ref("Snumber").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
-            setTimeout(start1, 1000);
+            setTimeout(start1, 200);
 
         }
         function start1() {
@@ -120,7 +120,7 @@
                     Check.push(snapshot.val());
                 })
             }
-            setTimeout(runme, 1000);
+            setTimeout(runme, 200);
 
 
         }
@@ -131,7 +131,7 @@
 
                 runme1();
             }
-            setTimeout(function () { alert(pls) }, 1000)
+            setTimeout(function () { alert(pls) }, 200)
         }
         function runme1() {
             //1.初始宣告

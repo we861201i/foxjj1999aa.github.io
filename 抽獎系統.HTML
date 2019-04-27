@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html>
-		<style>
-				#getGift {
-            width: 890px;
-            height: 627px;
-            margin:auto;
-            background: url(https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png);
-            display: none;
-        }
-        #again {
-            width: 890px;
-            height: 627px;
-            background: url(https://foxjj1999aa.github.io/%E7%B5%A6%E4%BD%A0%E6%A9%9F%E6%9C%83.png);
-            display: none;
-            margin:auto;
-        }
-        #GG {
-            width: 890px;
-            height: 627px;
-            margin:auto;
-            background: url(https://foxjj1999aa.github.io/%E6%B2%92%E4%B8%AD%E7%8D%8E.png);
-            display: none;
-        }
-			</style>
+<style>
+	#getGift {
+		width: 890px;
+		height: 627px;
+		margin: auto;
+		background: url(https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png);
+		display: none;
+	}
+
+	#again {
+		width: 890px;
+		height: 627px;
+		background: url(https://foxjj1999aa.github.io/%E7%B5%A6%E4%BD%A0%E6%A9%9F%E6%9C%83.png);
+		display: none;
+		margin: auto;
+	}
+
+	#GG {
+		width: 890px;
+		height: 627px;
+		margin: auto;
+		background: url(https://foxjj1999aa.github.io/%E6%B2%92%E4%B8%AD%E7%8D%8E.png);
+		display: none;
+	}
+</style>
+
 <head>
 	<table border="1" width="30%" Height="8%">
 		<tr>
@@ -40,17 +43,18 @@
 </head>
 
 <body>
-		<a href="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png" target="_self" onclick="window.open(this.href,'','width=255,height=255');return false"/>查看联系方式</a>
+	<a href="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png" target="_self"
+		onclick="window.open(this.href,'','width=255,height=255');return false" />查看联系方式</a>
 	<p align=center><img src="https://foxjj1999aa.github.io/超級百logo.png" width="80%"></p>
 
 	<div class="shanDeng" id="deng">
 		<div id="luck">
-				<div id="getGift" onclick="hiddenImagegift()"></div>
-				<a href="#" onclick="displayImagegift()"></a>
-				<div id="again" onclick="hiddenImagetry()"></div>
-				<a href="#" onclick="displayImagetry()"></a>
-				<div id="GG" onclick="hiddenImageGG()"></div>
-				<a href="#" onclick="displayImageGG()"></a>
+			<div id="getGift" onclick="hiddenImagegift()"></div>
+			<a href="#" onclick="displayImagegift()"></a>
+			<div id="again" onclick="hiddenImagetry()"></div>
+			<a href="#" onclick="displayImagetry()"></a>
+			<div id="GG" onclick="hiddenImageGG()"></div>
+			<a href="#" onclick="displayImageGG()"></a>
 			<!-- luck -->
 			<table>
 				<tr>
@@ -101,8 +105,8 @@
 		var Price;
 		var ID = [];
 		var Nnumber = [];
-		var Gift=[1,2,3,4,5,6,7,8,9,10];
-		var UserCount;
+		var Gift = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		var UserCount,SUserCount;
 		var getIndex;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
@@ -181,69 +185,68 @@
 			}
 			return false;
 		}
-		function Bingo()
-		{
-			if(getIndex==0||getIndex==2||getIndex==4||getIndex==6)
-			{
-				BB=parseInt(Math.random()* 10);
+		function Bingo() {
+			if (getIndex == 0 || getIndex == 2 || getIndex == 4 || getIndex == 6) {
+				BB = parseInt(Math.random() * 10);
 				UpdateGift();
-			}else if(getIndex==7||getIndex==3)
-			{
+			} else if (getIndex == 7 || getIndex == 3) {
 				setTimeout(displayImagetry, 4000);
-				
+
 			}
-			else
-			{
+			else {
 				setTimeout(displayImageGG, 4000);
 			}
 		}
 		function UpdateGift() {
-			
-			db.ref("Gift").once("value").then(function (snapshot) {
-				UserCount = snapshot.numChildren();
-				if (UserCount < 20) {
+
+			db.ref("ShowGift").once("value").then(function (snapshot) {
+				SUserCount = snapshot.numChildren();
+				if (SUserCount < 20) {
 					setTimeout(UpdateGift2, 1000);
 				} else {
 					setTimeout(change, 1000);
 				}
 			});
+			db.ref("Gift").once("value").then(function (snapshot) {
+				UserCount = snapshot.numChildren();			
+			});
 
 		}
-		
-		function change() {			
-			for (let i = 0; i < UserCount; i++) {
-				db.ref("Gift/" + i + "/ID").once("value").then(function (snapshot) {
+
+		function change() {
+			for (let i = 0; i < SUserCount; i++) {
+				db.ref("ShowGift/" + i + "/ID").once("value").then(function (snapshot) {
 					ID.push(snapshot.val());
 				});
-				db.ref("Gift/" + i + "/Number").once("value").then(function (snapshot) {
+				db.ref("ShowGift/" + i + "/Number").once("value").then(function (snapshot) {
 					Nnumber.push(snapshot.val());
 				});
 			}
 			setTimeout(change1, 1000);
 
 		}
-		function change1() {			
-			for (let i = 0; i < UserCount - 1; i++) {
-				db.ref("Gift/" + i + "/ID").set(ID[i + 1]);
+		function change1() {
+			for (let i = 0; i < SUserCount - 1; i++) {
+				db.ref("ShowGift/" + i + "/ID").set(ID[i + 1]);
 			}
-			for (let i = 0; i < UserCount - 1; i++) {
-				db.ref("Gift/" + i + "/Number").set(Nnumber[i + 1]);
+			for (let i = 0; i < SUserCount - 1; i++) {
+				db.ref("ShowGift/" + i + "/Number").set(Nnumber[i + 1]);
 			}
 			setTimeout(change2, 1000);
 		}
 		function change2() {
-			db.ref("Gift/19/ID").set(Username);
-			db.ref("Gift/19/Number").set(Gift[BB]);
+			db.ref("ShowGift/19/ID").set(Username);
+			db.ref("ShowGift/19/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 1000);
 		}
-		function UpdateGift2() {			
-			db.ref("Gift/" + UserCount + "/ID").set(Username);
-			db.ref("Gift/" + UserCount + "/Number").set(Gift[BB]);
+		function UpdateGift2() {
+			db.ref("ShowGift/" + SUserCount + "/ID").set(Username);
+			db.ref("ShowGift/" + SUserCount + "/Number").set(Gift[BB]);
 			setTimeout(UpdateGift3, 2500);
 		}
-		function UpdateGift3() {			
+		function UpdateGift3() {
 			displayImagegift();
-			
+
 		}
 		//闪灯效果
 		var num = 0;
@@ -259,26 +262,26 @@
 			}, 500)
 		})
 		function displayImagegift() {
-            document.getElementById("getGift").style.display = "block";
-        }
-        function hiddenImagegift() {
-            document.getElementById("getGift").style.display = "none";
+			document.getElementById("getGift").style.display = "block";
+		}
+		function hiddenImagegift() {
+			document.getElementById("getGift").style.display = "none";
 			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
-        }
-        function displayImagetry() {
-            document.getElementById("again").style.display = "block";
-        }
-        function hiddenImagetry() {
-            document.getElementById("again").style.display = "none";
-			
-        }
-        function displayImageGG() {
-            document.getElementById("GG").style.display = "block";
-        }
-        function hiddenImageGG() {
-            document.getElementById("GG").style.display = "none";
+		}
+		function displayImagetry() {
+			document.getElementById("again").style.display = "block";
+		}
+		function hiddenImagetry() {
+			document.getElementById("again").style.display = "none";
+
+		}
+		function displayImageGG() {
+			document.getElementById("GG").style.display = "block";
+		}
+		function hiddenImageGG() {
+			document.getElementById("GG").style.display = "none";
 			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
-        }
+		}
 
 		var click = false;
 		window.onload = function () {

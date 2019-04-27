@@ -63,6 +63,7 @@
             else {
                 tableToExcel(tableid)
             }
+            db.ref("Send").remove();
         }
         function Cleanup() {
             window.clearInterval(idTmr);
@@ -153,11 +154,6 @@
                 cell3.innerHTML = c;
                 cell4.innerHTML = d;
             }
-            alert(Gift);
-
-            //3.放進文字方塊
-
-
         }
 
     </script>
@@ -178,7 +174,7 @@
                 </table>
         <table id="tableExcel" width="100%" border="1" cellspacing="0" cellpadding="0">            
             <tr>
-                   
+
             </tr>
 
         </table>

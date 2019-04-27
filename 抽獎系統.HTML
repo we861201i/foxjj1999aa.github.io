@@ -102,12 +102,14 @@
 	<script>
 		var Username = location.search.substr(1);
 		var BB;
+		var Key;
 		var Price;
 		var ID = [];
 		var Nnumber = [];
 		var Gift = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		var UserCount, SUserCount;
 		var getIndex;
+		var Point;
 		var luck = {
 			index: -1,	//当前转动到哪个位置，起点位置
 			count: 0,	//总共有多少个位置
@@ -186,6 +188,11 @@
 			return false;
 		}
 		function Bingo() {
+			db.ref("User").orderByChild("ID").equalTo(Username).once('value', function (snapshot) {
+				snapshot.forEach(function (item) {
+					Key = item.key;
+				})
+			});
 			if (getIndex == 0 || getIndex == 2 || getIndex == 4 || getIndex == 6) {
 				BB = parseInt(Math.random() * 10);
 				UpdateGift();
@@ -266,6 +273,14 @@
 			}, 500)
 		})
 		function displayImagegift() {
+			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
+				Point =snapshot.val();
+			})
+			setTimeout(displayImagegift1,1000)
+		}
+		function displayImagegift1() {
+			Point=Point+1;
+			db.ref("User/" + Key + "/Point").set(Point);
 			document.getElementById("getGift").style.display = "block";
 		}
 		function hiddenImagegift() {
@@ -280,6 +295,16 @@
 
 		}
 		function displayImageGG() {
+			
+			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
+				Point =snapshot.val();
+			})
+			setTimeout(displayImageGG1,1000)
+			
+		}
+		function displayImageGG1() {
+			Point=Point+1;
+			db.ref("User/" + Key + "/Point").set(Point);
 			document.getElementById("GG").style.display = "block";
 		}
 		function hiddenImageGG() {

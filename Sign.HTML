@@ -71,7 +71,7 @@ login-panel{
             db.ref("User").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
             });
-            setTimeout(sign1, 1000);
+            setTimeout(sign1, 200);
         }
         function sign1() {
             for (let i = 0; i < UserCount; i++) {
@@ -79,14 +79,14 @@ login-panel{
                     UserID.push(snapshot.val());
                 });
             }
-            setTimeout(sign2, 1000);
+            setTimeout(sign2, 200);
         }
         function sign2() {
             var getID = document.getElementById("inpid").value;
             if (getID != "") {
                 var check = UserID.includes(getID);
                 if (check == true) { alert("帳號已被註冊過了喔!"); }
-                else { setTimeout(sign3, 1000); }
+                else { setTimeout(sign3, 200); }
             } else {
                 alert("帳號不得為空")
             }
@@ -99,7 +99,7 @@ login-panel{
                 db.ref("User/" + UserCount + "/Password").set(getPassword);
                 db.ref("User/" + UserCount + "/Point").set(0);
                 alert("註冊成功!");
-                document.location.href = "https://foxjj1999aa.github.io/SearchPoint.HTML?" + getID;
+                document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E5%89%8D%E7%BD%AE.HTML?" + getID;
             } else {
                 alert("密碼不得為空")
             }

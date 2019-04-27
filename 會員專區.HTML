@@ -191,8 +191,7 @@
     function send1() {
         for (let i = 0; i < Wgift.length; i++) {
             UsrGift+=Wgift[i]+"號獎品"
-        }
-        alert(UsrGift);
+        }        
         db.ref("Send/" + SendCount + "/Gift").set(UsrGift);
     }
 

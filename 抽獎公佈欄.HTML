@@ -1,6 +1,6 @@
 <html>
 <style>
-    #bb {
+    #qq {
         width: 100%;
         float: left;
     }
@@ -29,12 +29,11 @@
         <div style="position:absolute;top:9%;left:2%">
             <table border="1" width="50%" Height="50%">
                 <tr>
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML">抽獎公佈欄</a></th>
-
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML">點數查詢</a></th>
-
-                    <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML">輸入點數</a></th>
-
+                    <th width="10%"> <a id=aa href="">dd</a></th>
+                    <th width="10%"> <a id=bb href="">dd</a></th>
+                    <th width="10%"> <a id=cc href="">dd</a></th>
+                    <th width="10%"> <a id=dd href="">dd</a></th>
+                    <th width="10%"> <a id=ee href="">dd</a></th>
                 </tr>
             </table>
         </div>
@@ -56,10 +55,10 @@
             messagingSenderId: "520140906035"
         };
         firebase.initializeApp(config);
-
+        var Username = location.search.substr(1);
     </script>
 
-    <div id=bb>
+    <div id=qq>
 
     </div>
     <script src="jquery-1.8.3.min.js"></script>
@@ -67,7 +66,7 @@
         //set the default value
         window.onload = start;
         var db = firebase.database();
-        var get = [],Nnumber=[];
+        var get = [], Nnumber = [];
         var count = 19;
         var UserCount;
         var run = document.getElementById("run");
@@ -79,6 +78,11 @@
 
         //add input block in showBlock
         function start() {
+            document.getElementById("aa").innerHTML = '<a id=aa href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML?' + Username + '">抽獎公佈欄</a>';
+            document.getElementById("bb").innerHTML = '<a id=bb href="https://foxjj1999aa.github.io/SearchPoint.HTML?' + Username + '">點數查詢</a>';
+            document.getElementById("cc").innerHTML = '<a id=cc href="https://foxjj1999aa.github.io/%E6%9C%83%E5%93%A1%E5%B0%88%E5%8D%80.HTML?' + Username + '">會員專區</a>';
+            document.getElementById("dd").innerHTML = '<a id=dd href="https://foxjj1999aa.github.io/抽獎前置.HTML?' + Username + '">輸入點數</a>';
+            document.getElementById("ee").innerHTML = '<a id=ee href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML?' + Username + '">序號產生器</a>';
             db.ref("ShowGift").once("value").then(function (snapshot) {
                 UserCount = snapshot.numChildren();
                 setTimeout(start1, 1000);
@@ -102,15 +106,15 @@
 
             for (let i = UserCount; i > 0; i--) {
 
-                $("#bb").append('<div class="item"><input type="image" width="100%" src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png" /><br><font color="white">' + get[i - 1] + '</font></div>');
-                
+                $("#qq").append('<div class="item"><input type="image" width="100%" src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png" /><br><font color="white">' + get[i - 1] + '</font></div>');
+
             }
             setInterval(runh, 10000);
 
         };
-        function runh() {            
-            run.innerHTML = '<marquee scrollamount=12 behavior=slide>' + '恭喜' + get[count] + '中獎!'+'中了'+Nnumber[count]+'號獎品喔!'+'</marquee>';
-            count=count-1;
+        function runh() {
+            run.innerHTML = '<marquee scrollamount=12 behavior=slide>' + '恭喜' + get[count] + '中獎!' + '中了' + Nnumber[count] + '號獎品喔!' + '</marquee>';
+            count = count - 1;
         }
 
     </script>

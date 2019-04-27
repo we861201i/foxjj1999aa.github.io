@@ -41,7 +41,7 @@
 
         <h2>會員專區</h2>
 </div>
-<button onclick="javascript:location.href='https://foxjj1999aa.github.io/抽獎前置.HTML'">返回輸入點數</button>
+<button onclick="javascript:location.href='https://foxjj1999aa.github.io/抽獎前置.HTML?'+Username">返回輸入點數</button>
 <button id=change align=right>填寫寄貨資訊</button>
 <button onclick="send1()" >++</button>
 
@@ -191,7 +191,8 @@
     function send1() {
         for (let i = 0; i < Wgift.length; i++) {
             UsrGift+=Wgift[i]+"號獎品"
-        }        
+        }
+        alert(UsrGift);
         db.ref("Send/" + SendCount + "/Gift").set(UsrGift);
     }
 

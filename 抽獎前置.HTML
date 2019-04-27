@@ -3,15 +3,12 @@
 
 <head>
     <table border="1" width="30%" Height="8%">
-        <tr>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML?"+Username>抽獎公佈欄</a></th>
-
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/SearchPoint.HTML">點數查詢</a></th>
-<th width="10%"> <a href="https://foxjj1999aa.github.io/%E6%9C%83%E5%93%A1%E5%B0%88%E5%8D%80.HTML">會員專區</a></th>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎前置.HTML">輸入點數</a></th>
-            <th width="10%"> <a href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML">序號產生器</a></th>
-            
-
+        <tr>            
+            <th width="10%"> <a id=aa href="">dd</a></th>
+            <th width="10%"> <a id=bb href="">dd</a></th>
+            <th width="10%"> <a id=cc href="">dd</a></th>
+            <th width="10%"> <a id=dd href="">dd</a></th>
+            <th width="10%"> <a id=ee href="">dd</a></th>
         </tr>
     </table>
 
@@ -53,7 +50,7 @@
         };
         firebase.initializeApp(config);
         var db = firebase.database();
-
+        window.onload = aa;
         var CheckSnumber = [];
         var UserCount;
         function Input() {
@@ -97,6 +94,14 @@
         function Input3() {
             db.ref("Snumber/" + (UserCount-1)).remove();
             setTimeout(function(){document.location.href = "https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E7%B3%BB%E7%B5%B1.HTML?" + Username;},1000)  ;
+        }
+        function aa()
+        {
+            document.getElementById("aa").innerHTML='<a id=aa href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML?'+Username+'">抽獎公佈欄</a>';       
+            document.getElementById("bb").innerHTML='<a id=bb href="https://foxjj1999aa.github.io/SearchPoint.HTML?'+Username+'">點數查詢</a>';  
+            document.getElementById("cc").innerHTML='<a id=cc href="https://foxjj1999aa.github.io/%E6%9C%83%E5%93%A1%E5%B0%88%E5%8D%80.HTML?'+Username+'">會員專區</a>';  
+            document.getElementById("dd").innerHTML='<a id=dd href="https://foxjj1999aa.github.io/抽獎前置.HTML?'+Username+'">輸入點數</a>';  
+            document.getElementById("ee").innerHTML='<a id=ee href="https://foxjj1999aa.github.io/%E5%BA%8F%E8%99%9F%E7%94%A2%E7%94%9F%E5%99%A8.HTML?'+Username+'">序號產生器</a>';  
         }
 
     </script>

@@ -56,7 +56,7 @@
 			<div id="GG" onclick="hiddenImageGG()"></div>
 			<a href="#" onclick="displayImageGG()"></a>
 			<!-- luck -->
-			<table>
+			<table id=bingo>
 				<tr>
 					<td class="luck-unit luck-unit-0"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
 					</td>
@@ -104,6 +104,7 @@
 		var BB;
 		var Key;
 		var Price;
+		var ccc = 0;
 		var ID = [];
 		var Nnumber = [];
 		var Gift = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -274,12 +275,14 @@
 		})
 		function displayImagegift() {
 			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
-				Point =snapshot.val();
+				Point = snapshot.val();
 			})
-			setTimeout(displayImagegift1,1000)
+			setTimeout(displayImagegift1, 1000)
 		}
 		function displayImagegift1() {
-			Point=Point+1;
+			Point = Point + 1;
+			var result_style = document.getElementById('bingo').style;
+			result_style.display = 'none';
 			db.ref("User/" + Key + "/Point").set(Point);
 			document.getElementById("getGift").style.display = "block";
 		}
@@ -288,22 +291,27 @@
 			document.location.href = "https://foxjj1999aa.github.io/抽獎公佈欄.HTML?" + Username;
 		}
 		function displayImagetry() {
+			var result_style = document.getElementById('bingo').style;
+			result_style.display = 'none';
 			document.getElementById("again").style.display = "block";
 		}
 		function hiddenImagetry() {
+			var result_style = document.getElementById('bingo').style;
+			result_style.display = 'table-row';
 			document.getElementById("again").style.display = "none";
 
 		}
 		function displayImageGG() {
-			
 			db.ref("User/" + Key + "/Point").once("value").then(function (snapshot) {
-				Point =snapshot.val();
+				Point = snapshot.val();
 			})
-			setTimeout(displayImageGG1,1000)
-			
+			setTimeout(displayImageGG1, 1000)
+
 		}
 		function displayImageGG1() {
-			Point=Point+1;
+			Point = Point + 1;
+			var result_style = document.getElementById('bingo').style;
+			result_style.display = 'none';
 			db.ref("User/" + Key + "/Point").set(Point);
 			document.getElementById("GG").style.display = "block";
 		}
@@ -314,7 +322,9 @@
 
 		var click = false;
 		window.onload = function () {
+
 			luck.init('luck');
+
 			$("#btn").click(function () {
 				//按下弹起效果
 				$("#btn").addClass("cjBtnDom");
@@ -335,6 +345,8 @@
 				}
 
 			});
+
+
 		};
 	</script>
 

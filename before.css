@@ -6,9 +6,9 @@ body {
         margin-right: auto;
     }
 	
-@media screen and(max-width:680px){
-#text1{
-font-size:2 px;
+@media screen and(max-width:1705px){
+#text-in{
+margin-left:-25px;
 
 }
 }

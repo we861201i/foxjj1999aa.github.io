@@ -1,24 +1,27 @@
-body{
-
-		background-image: url("https://foxjj1999aa.github.io/%E6%8A%BD%E7%8D%8E%E8%83%8C%E6%99%AF.jpg");
+body{	
+		background-image: url("抽獎背景.jpg");
 		background-repeat: no-repeat;
-		background-size: 100%;
+		background-size:auto;
+		background-position:center center;
+		padding-top:250px;
+	}
+	#luck{
+		
 	}
 	*{
 		margin-left: 0;padding-left: 0;
 	}
-	#title{
-		width: 560px;
-		height: 321px;
-		margin: 200px auto 0 auto;
-	}
+
 
 	.shanDeng,.shanDeng2{
-		width: 858px;
-		height: 858px;
-		background-size: 100%;
+		position:relative;
+		width:495px;
+		height:495px;
+		background-size: cover;
 		background-repeat: no-repeat;
-		margin: 88px auto 0 auto;
+		margin:auto auto 280px auto;
+
+		
 	}
 
 	.shanDeng{
@@ -29,8 +32,8 @@ body{
 	}
 
 	#btn .cjBtnDom,#btn .cjBtn,.shanDeng .active,.shanDeng td{
-		width: 180px;
-		height: 180px;
+		width: 140px;
+		height: 140px;
 		background-repeat: no-repeat;
 		background-size: 100%;
 	}
@@ -51,6 +54,7 @@ body{
 		background-image: url(proBj.png);
 	}
 	.shanDeng table{
-		padding-left: 63px;
-		padding-top: 63px;
+		padding-left: 30px;
+		padding-top: 35px;
+		padding-bottom:-45px
 	}

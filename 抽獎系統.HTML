@@ -1,33 +1,40 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <html>
 <style>
 	#getGift {
-		width: 890px;
-		height: 627px;
-		margin: auto;
+		width: 850px;
+		height: 600px;
+		margin-left:-200px;
 		background: url(https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E%E5%95%A6.png);
 		display: none;
 	}
 
 	#again {
-		width: 890px;
-		height: 627px;
+		width: 850px;
+		height: 600px;
+		margin-left:-200px;
 		background: url(https://foxjj1999aa.github.io/%E7%B5%A6%E4%BD%A0%E6%A9%9F%E6%9C%83.png);
 		display: none;
-		margin: auto;
 	}
 
 	#GG {
-		width: 890px;
-		height: 627px;
-		margin: auto;
+		width: 850px;
+		height: 600px;
+		margin-left:-200px;
 		background: url(https://foxjj1999aa.github.io/%E6%B2%92%E4%B8%AD%E7%8D%8E.png);
 		display: none;
 	}
 </style>
 
+
 <head>
-	<table border="1" width="30%" Height="8%">
+	
+
+	<link rel="stylesheet" type="text/css" href="styleCJ.css"/>
+
+</head>
+<table  border="1" width="30%" Height="9%">
 		<tr>
 			<th width="10%"> <a href="https://foxjj1999aa.github.io/抽獎公佈欄.HTML">抽獎公佈欄</a></th>
 
@@ -37,11 +44,6 @@
 
 		</tr>
 	</table>
-
-	<link rel="stylesheet" type="text/css" href="https://foxjj1999aa.github.io/styleCJ.css" />
-
-</head>
-
 <body>
 	<div class="shanDeng" id="deng">
 		<div id="luck">
@@ -54,31 +56,33 @@
 			<!-- luck -->
 			<table id=bingo>
 				<tr>
-					<td class="luck-unit luck-unit-0"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					<td class="luck-unit luck-unit-0"><img src="中獎.png">
 					</td>
-					<td class="luck-unit luck-unit-1"><img src="https://foxjj1999aa.github.io/%E6%A7%93%E9%BE%9C.png">
+					<td class="luck-unit luck-unit-1"><img src="槓龜.png">
 					</td>
-					<td class="luck-unit luck-unit-2"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					<td class="luck-unit luck-unit-2"><img src="中獎.png">
 					</td>
 				</tr>
 				<tr>
 					<td class="luck-unit luck-unit-7"><img
-							src="https://foxjj1999aa.github.io/%E5%86%8D%E6%8A%BD%E4%B8%80%E6%AC%A1.png"></td>
+							src="再抽一次.png"></td>
 					<td rowspan="1" colspan="1" class="cjBtn" id="btn"></td>
 					<td class="luck-unit luck-unit-3"><img
-							src="https://foxjj1999aa.github.io/%E5%86%8D%E6%8A%BD%E4%B8%80%E6%AC%A1.png"></td>
+							src="再抽一次.png"></td>
 				</tr>
 				<tr>
-					<td class="luck-unit luck-unit-6"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					<td class="luck-unit luck-unit-6"><img src="中獎.png">
 					</td>
-					<td class="luck-unit luck-unit-5"><img src="https://foxjj1999aa.github.io/%E6%A7%93%E9%BE%9C.png">
+					<td class="luck-unit luck-unit-5"><img src="槓龜.png">
 					</td>
-					<td class="luck-unit luck-unit-4"><img src="https://foxjj1999aa.github.io/%E4%B8%AD%E7%8D%8E.png">
+					<td class="luck-unit luck-unit-4"><img src="中獎.png">
 					</td>
 				</tr>
 			</table>
 		</div><!-- luckEnd -->
 	</div>
+
+</body>
 	<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
 	<script>
 		var Username = location.search.substr(1);
@@ -353,8 +357,5 @@
 
 			};
 	</script>
-
-
-</body>
 
 </html>
